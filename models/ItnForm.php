@@ -21,7 +21,7 @@ class ItnForm extends Model
     {
         return [
             ['itnCode', 'required'],
-            //['itnCode', 'validateItnCode'],
+            ['itnCode', 'validateItnCode'],
         ];
     }
 
@@ -42,13 +42,12 @@ class ItnForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validateItnCode($attribute, $params)
+    public function validateItnCode($attribute)
     {
         if (!$this->hasErrors()) {
-            $user = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if ($this->itnCode == '1') {
+                $this->addError($attribute, 'Введеный код не является ИНН.');
             }
         }
     }

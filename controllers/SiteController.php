@@ -34,6 +34,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new ItnForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()){
+            Yii::$app->session->setFlash('success', "Код успешно отправлен на проверку!");
+
+            return $this->refresh();
+        }
         return $this->render('index', [
             'model' => $model,
         ]);
