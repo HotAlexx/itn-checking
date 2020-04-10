@@ -33,6 +33,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        var_dump(Yii::$app->fnsapi->checkSelfemployed('4444')); die();
+
         $model = new ItnForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             Yii::$app->session->setFlash('success', "Код успешно отправлен на проверку!");

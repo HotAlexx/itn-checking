@@ -51,6 +51,10 @@ $config = [
             'rules' => [
             ],
         ],
+        'fnsapi' => [
+            'class' => 'app\components\FnsApiComponent',
+            'baseUrl' => 'https://statusnpd.nalog.ru:443/api/v1/tracker/',
+        ],
     ],
     'params' => $params,
 ];
