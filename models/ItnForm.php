@@ -11,6 +11,9 @@ use yii\base\Model;
  */
 class ItnForm extends Model
 {
+    const SELF_EMPLOYED = 1;
+    const NOT_SELF_EMPLOYED = 0;
+
     public $itnCode;
 
 

@@ -47,8 +47,7 @@ class SiteController extends Controller
                 }
             }
             Yii::$app->session->setFlash('success', "Код успешно отправлен на проверку! Результат проверки: " . $message);
-//
-//            return $this->refresh();
+
         }
         return $this->render('index', [
             'model' => $model,
@@ -57,15 +56,31 @@ class SiteController extends Controller
 
     protected function checkStatus($inn)
     {
-        $date = new \DateTime('NOW');
-        $fns_data = Yii::$app->fnsapi->checkSelfemployed($inn, $date);
+        $saved_status = Yii::$app->cache->get('status_' . $inn);
+        if ($saved_status === false) {
+            $date = new \DateTime('NOW');
+            $fns_data = Yii::$app->fnsapi->checkSelfemployed($inn, $date);
 
-        if (isset($fns_data['status'])) {
-            return $fns_data['status'];
+            if (isset($fns_data['status'])) {
+                $status = $fns_data['status'];
+
+                if ($status) {
+                    Yii::$app->cache->set('status_' . $inn, ItnForm::SELF_EMPLOYED);
+                } else {
+                    Yii::$app->cache->set('status_' . $inn, ItnForm::NOT_SELF_EMPLOYED);
+                }
+            } else {
+                $status = null;
+            }
         } else {
-            return null;
-        }
+            if ($saved_status == ItnForm::SELF_EMPLOYED) {
+                $status = true;
+            } else {
+                $status = false;
+            }
 
+        }
+        return $status;
     }
 
 }

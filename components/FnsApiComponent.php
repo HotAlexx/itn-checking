@@ -22,6 +22,7 @@ class FnsApiComponent extends BaseObject
         ]);
 
         $response = $client->post('taxpayer_status', ['inn' => $inn, 'requestDate' => $requestDate->format('Y-m-d')])->send();
+
         return $response->data;
 
     }
