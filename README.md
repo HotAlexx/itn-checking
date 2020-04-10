@@ -10,10 +10,11 @@ INSTALLATION
 ------------
 
 ### Need to install 
-1. [Composer](http://getcomposer.org/), (instructions
+1. [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+2. [Composer](http://getcomposer.org/), (instructions
 at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).)
-2. [Docker](https://www.docker.com/)
-3. [Docker-compose](https://www.docker.com/)
+3. [Docker](https://www.docker.com/)
+4. [Docker-compose](https://www.docker.com/)
 
 ### Install
 Clone:
