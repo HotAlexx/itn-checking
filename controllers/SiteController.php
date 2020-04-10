@@ -4,12 +4,7 @@ namespace app\controllers;
 
 use app\models\ItnForm;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -27,9 +22,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
+     * Show main form
      * @return string
+     * @throws \Exception
      */
     public function actionIndex()
     {
@@ -54,6 +49,12 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * Checking Code status by db or by REST api
+     * @param $inn
+     * @return bool|null
+     * @throws \Exception
+     */
     protected function checkStatus($inn)
     {
         $saved_status = Yii::$app->cache->get('status_' . $inn);

@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 
 /**
@@ -39,11 +38,9 @@ class ItnForm extends Model
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
+     * Validation Itn Code
      *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @param $attribute
      */
     public function validateItnCode($attribute)
     {
@@ -55,6 +52,12 @@ class ItnForm extends Model
         }
     }
 
+    /**
+     * Validation 10 chars Itn Code
+     *
+     * @param $validated_itn
+     * @return bool
+     */
     protected function validate10chars($validated_itn)
     {
         if (preg_match('#([\d]{10})#', $validated_itn, $m)) {
@@ -73,6 +76,11 @@ class ItnForm extends Model
         }
     }
 
+    /**
+     * Validation 12 chars Itn Code
+     * @param $validated_itn
+     * @return bool
+     */
     protected function validate12chars($validated_itn)
     {
         if (preg_match('#([\d]{12})#', $validated_itn, $m)) {
