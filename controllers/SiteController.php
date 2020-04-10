@@ -33,17 +33,39 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        var_dump(Yii::$app->fnsapi->checkSelfemployed('4444')); die();
 
         $model = new ItnForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
-            Yii::$app->session->setFlash('success', "Код успешно отправлен на проверку!");
-
-            return $this->refresh();
+            $status = $this->checkStatus($model->itnCode);
+            if ($status === null) {
+                $message = "Установить статус не удалось.";
+            } else {
+                if ($status === true) {
+                    $message = "Данный нальгоплательщик является плательщиком налога на профессиональный доход";
+                } else {
+                    $message = "Данный нальгоплательщик НЕ является плательщиком налога на профессиональный доход";
+                }
+            }
+            Yii::$app->session->setFlash('success', "Код успешно отправлен на проверку! Результат проверки: " . $message);
+//
+//            return $this->refresh();
         }
         return $this->render('index', [
             'model' => $model,
         ]);
+    }
+
+    protected function checkStatus($inn)
+    {
+        $date = new \DateTime('NOW');
+        $fns_data = Yii::$app->fnsapi->checkSelfemployed($inn, $date);
+
+        if (isset($fns_data['status'])) {
+            return $fns_data['status'];
+        } else {
+            return null;
+        }
+
     }
 
 }

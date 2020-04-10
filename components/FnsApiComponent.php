@@ -9,7 +9,7 @@ use yii\httpclient\Client;
 class FnsApiComponent extends BaseObject
 {
     public $baseUrl;
-    public function checkSelfemployed($itnCode)
+    public function checkSelfemployed($inn, \DateTime $requestDate)
     {
         $client = new Client([
             'baseUrl' => $this->baseUrl,
@@ -21,7 +21,7 @@ class FnsApiComponent extends BaseObject
             ],
         ]);
 
-        $response = $client->post('taxpayer_status', ['inn' => "556862479879", 'requestDate' => "2020-01-01"])->send();
+        $response = $client->post('taxpayer_status', ['inn' => $inn, 'requestDate' => $requestDate->format('Y-m-d')])->send();
         return $response->data;
 
     }
